@@ -29,6 +29,12 @@ class _GastosScreenState extends State<GastosScreen> {
       });
     }
   }
+
+  double gastoTotal() {
+    double gastoTotal = lstGastos.fold(0.0, (suma, gasto) => suma + gasto.monto);
+    return gastoTotal;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -64,10 +70,47 @@ class _GastosScreenState extends State<GastosScreen> {
                     ],
                   ),
                   leading: Icon(Icons.shopify_sharp, color: Colors.deepOrange,),
+                  trailing: GestureDetector(
+                    onTap: () async {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => GastoForm(gasto: gasto,)));
+                      _cargarGastos();
+                    },
+                    child: Icon(Icons.edit_document),
+                  ),
+                  onLongPress: () {
+                    showDialog(
+                      context: context, 
+                      builder: (context) {
+                        return AlertDialog(
+                          icon: Icon(Icons.warning_rounded, color: Colors.deepOrange[900],),
+                          title: Text('Atención:'),
+                          content: Text("Esta seguro que desea eliminar el registro?"),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop(false);
+                              }, 
+                              child: Text("No")
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop(true);
+                                gastoProvider.eliminarGasto(gasto.id ?? 0);
+                                _cargarGastos();
+                              }, 
+                              child: Text("Sí")
+                            ),
+                          ],
+                        );
+                      }
+                    );
+                  },
                 );
               },
             )
-          )
+          ),
+          SizedBox(height: 30,),
+          Text("Cantidad total de gastos: \$${gastoTotal()}")
         ],
       ),
       floatingActionButton: FloatingActionButton(
