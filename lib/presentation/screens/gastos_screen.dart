@@ -72,7 +72,7 @@ class _GastosScreenState extends State<GastosScreen> {
                   leading: Icon(Icons.shopify_sharp, color: Colors.deepOrange,),
                   trailing: GestureDetector(
                     onTap: () async {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => GastoForm(gasto: gasto,)));
+                      await Navigator.push(context, MaterialPageRoute(builder: (context) => GastoForm(gasto: gasto,)));
                       _cargarGastos();
                     },
                     child: Icon(Icons.edit_document),
@@ -110,14 +110,15 @@ class _GastosScreenState extends State<GastosScreen> {
             )
           ),
           SizedBox(height: 30,),
-          Text("Cantidad total de gastos: \$${gastoTotal()}")
+          Text("Cantidad total de gastos: \$${gastoTotal()}", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
+          SizedBox(height: 30,),
         ],
       ),
       floatingActionButton: FloatingActionButton(
         heroTag: 'gasto_fab',
         child: Icon(Icons.add_box_outlined),
         onPressed: () async {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => GastoForm()));
+          await Navigator.push(context, MaterialPageRoute(builder: (context) => GastoForm()));
           _cargarGastos();
         },
       ),

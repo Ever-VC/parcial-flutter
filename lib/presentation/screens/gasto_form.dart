@@ -95,7 +95,6 @@ class _GastoFormState extends State<GastoForm> {
                       if (DateTime.tryParse(value) == null) {
                         return 'El campo solo permite cone el formato: año-mes-dia';
                       }
-                      print(DateTime.parse(value));
                       return null;
                     },
                   ),

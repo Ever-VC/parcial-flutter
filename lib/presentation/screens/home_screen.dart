@@ -16,6 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text("Principal"),
       ),
+      body: Center(child: Text("PAGINA DE INICIO CON ESTADISTICAS BIEN PRO"),),
     );
   }
 }
